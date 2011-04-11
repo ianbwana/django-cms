@@ -7,7 +7,7 @@ from django.forms.util import ErrorList
 from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext_lazy as _
 
-from mptt.exceptions import InvalidMove
+from cms_mptt.exceptions import InvalidMove
 
 __all__ = ('TreeNodeChoiceField', 'TreeNodePositionField', 'MoveNodeForm')
 

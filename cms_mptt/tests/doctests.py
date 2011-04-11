@@ -1,7 +1,7 @@
 r"""
 >>> from datetime import date
->>> from mptt.exceptions import InvalidMove
->>> from mptt.tests.models import Genre, Insert, MultiOrder, Node, OrderedInsertion, Tree
+>>> from cms_mptt.exceptions import InvalidMove
+>>> from cms_mptt.tests.models import Genre, Insert, MultiOrder, Node, OrderedInsertion, Tree
 
 >>> def print_tree_details(nodes):
 ...     opts = nodes[0]._meta
@@ -40,7 +40,7 @@ AlreadyRegistered: The model Genre has already been registered.
 8 6 2 1 4 5
 
 # Utilities ###################################################################
->>> from mptt.utils import previous_current_next, tree_item_iterator, drilldown_tree_for_node
+>>> from cms_mptt.utils import previous_current_next, tree_item_iterator, drilldown_tree_for_node
 
 >>> for p,c,n in previous_current_next(Genre.tree.all()):
 ...     print (p,c,n)

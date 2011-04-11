@@ -1,8 +1,8 @@
 import doctest
 import unittest
 
-from mptt.tests import doctests
-from mptt.tests import testcases
+from cms_mptt.tests import doctests
+from cms_mptt.tests import testcases
 
 def suite():
     s = unittest.TestSuite()

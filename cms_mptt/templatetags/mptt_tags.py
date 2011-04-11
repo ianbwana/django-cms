@@ -8,7 +8,7 @@ from django.db.models.fields import FieldDoesNotExist
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext as _
 
-from mptt.utils import tree_item_iterator, drilldown_tree_for_node
+from cms_mptt.utils import tree_item_iterator, drilldown_tree_for_node
 
 register = template.Library()
 

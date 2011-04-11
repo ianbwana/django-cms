@@ -52,7 +52,7 @@ class MpttMeta:
         signals.class_prepared.connect(cls.finish_mptt_class,
             sender=main_cls, weak=False)
         
-        from mptt.signals import pre_save
+        from cms_mptt.signals import pre_save
         
         # Set up signal receiver to manage the tree when instances of the
         # model are about to be saved.
@@ -66,7 +66,7 @@ class MpttMeta:
         except ImportError:
             from django.utils.functional import wraps # Python 2.3, 2.4 fallback
         
-        from mptt.managers import TreeManager
+        from cms_mptt.managers import TreeManager
         
         # jsut copy attributes to meta
         for attr in MpttMeta.META_ATTRIBUTES:
@@ -114,7 +114,7 @@ def install_mptt(cls, name, bases, attrs):
     
     # import required stuff here, so we will have import errors only when mptt
     # is really in use
-    from mptt import models as mptt_models
+    from cms_mptt import models as mptt_models
         
     attrs['_is_mptt_model'] = lambda self: True
     
@@ -147,6 +147,6 @@ def finish_mptt(cls):
     if not hasattr(cls, '_is_mptt_model'):
         return
     
-    from mptt import registry
+    from cms_mptt import registry
     if not cls in registry:
         registry.append(cls)

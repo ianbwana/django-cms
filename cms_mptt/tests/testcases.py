@@ -2,9 +2,9 @@ import re
 
 from django.test import TestCase
 
-from mptt.exceptions import InvalidMove
-from mptt.tests import doctests
-from mptt.tests.models import Category, Genre
+from cms_mptt.exceptions import InvalidMove
+from cms_mptt.tests import doctests
+from cms_mptt.tests.models import Category, Genre
 
 def get_tree_details(nodes):
     """Creates pertinent tree details for the given list of nodes."""

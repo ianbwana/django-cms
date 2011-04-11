@@ -25,9 +25,9 @@ def register(model, parent_attr='parent', left_attr='lft', right_attr='rght',
     from django.db.models import FieldDoesNotExist, PositiveIntegerField
     from django.utils.translation import ugettext as _
 
-    from mptt import models
-    from mptt.signals import pre_save
-    from mptt.managers import TreeManager
+    from cms_mptt import models
+    from cms_mptt.signals import pre_save
+    from cms_mptt.managers import TreeManager
 
     if model in registry:
         raise AlreadyRegistered(
