@@ -95,10 +95,10 @@ class MenuPool(object):
         cache.delete_many(to_be_deleted)
         cache_keys.delete()
     
-    def register_menu(self, menu):
+    def register_menu(self, menu, replace=False):
         from menus.base import Menu
         assert issubclass(menu, Menu)
-        if menu.__name__ in self.menus.keys():
+        if menu.__name__ in self.menus.keys() and not replace:
             raise NamespaceAllreadyRegistered, "[%s] a menu with this name is already registered" % menu.__name__
         self.menus[menu.__name__] = menu()
         
