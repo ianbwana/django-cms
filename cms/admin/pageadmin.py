@@ -162,6 +162,8 @@ class PageAdmin(model_admin):
             'js/lib/jquery.query.js',
             'js/lib/ui.core.js',
             'js/lib/ui.dialog.js',
+            'js/lib/jquery.livequery.js',
+            'js/change_list.js',
 
         )]
 
