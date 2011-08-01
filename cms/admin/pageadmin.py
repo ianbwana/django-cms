@@ -1181,6 +1181,7 @@ class PageAdmin(model_admin):
     @create_on_success
     def edit_plugin(self, request, plugin_id):
         plugin_id = int(plugin_id)
+        page = None
         if not 'history' in request.path and not 'recover' in request.path:
             cms_plugin = get_object_or_404(CMSPlugin, pk=plugin_id)
             page = get_page_from_placeholder_if_exists(cms_plugin.placeholder)
@@ -1257,6 +1258,8 @@ class PageAdmin(model_admin):
 
             # read the saved object from plugin_admin - ugly but works
             saved_object = plugin_admin.saved_object
+            if page is not None:
+                page.save()
 
             context = {
                 'CMS_MEDIA_URL': settings.CMS_MEDIA_URL,
