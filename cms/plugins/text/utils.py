@@ -1,9 +1,10 @@
 from cms.models import CMSPlugin
 from django.template.defaultfilters import force_escape
 import re
+from lxml.html.soupparser import fromstring
 
 OBJ_TAG_RE = re.compile(u"\{\{ plugin_object (\d+) \}\}")
-OBJ_ADMIN_RE_PATTERN = ur'<img [^>]*\bid="plugin_obj_(\d+)"[^>]*/?>'
+OBJ_ADMIN_RE_PATTERN = ur'(<img [^>]*\bid="plugin_obj_\d+"[^>]*/?>)'
 OBJ_ADMIN_RE = re.compile(OBJ_ADMIN_RE_PATTERN)
 
 def plugin_tags_to_admin_html(text):
@@ -39,7 +40,9 @@ def plugin_tags_to_user_html(text, context, placeholder):
     context is the template context to use, placeholder is the placeholder name
     """
     def _render_tag(m):
-        plugin_id = int(m.groups()[0])
+        img = fromstring(m.groups()[0]).find('img')
+        attrib = img.attrib
+        plugin_id = int(attrib['id'].replace('plugin_obj_', ''))
         try:
             obj = CMSPlugin.objects.get(pk=plugin_id)
             obj._render_meta.text_enabled = True
@@ -47,7 +50,13 @@ def plugin_tags_to_user_html(text, context, placeholder):
             # Object must have been deleted.  It cannot be rendered to
             # end user so just remove it from the HTML altogether
             return u''
-        return obj.render_plugin(context, placeholder)
+        context.push()
+        try:
+            context['picture_width'] = attrib.get('width')
+            context['picture_height'] = attrib.get('height')
+            return obj.render_plugin(context, placeholder)
+        finally:
+            context.pop()
     return OBJ_ADMIN_RE.sub(_render_tag, text)
 
 
