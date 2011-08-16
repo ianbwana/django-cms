@@ -4,8 +4,10 @@ import re
 from lxml.html.soupparser import fromstring
 
 OBJ_TAG_RE = re.compile(u"\{\{ plugin_object (\d+) \}\}")
-OBJ_ADMIN_RE_PATTERN = ur'(<img [^>]*\bid="plugin_obj_\d+"[^>]*/?>)'
+OBJ_ADMIN_RE_PATTERN = ur'<img [^>]*\bid="plugin_obj_(\d+)"[^>]*/?>'
 OBJ_ADMIN_RE = re.compile(OBJ_ADMIN_RE_PATTERN)
+OBJ_TAG_ADMIN_RE_PATTERN = ur'(<img [^>]*\bid="plugin_obj_\d+"[^>]*/?>)'
+OBJ_TAG_ADMIN_RE = re.compile(OBJ_TAG_ADMIN_RE_PATTERN)
 
 def plugin_tags_to_admin_html(text):
     """
@@ -57,7 +59,7 @@ def plugin_tags_to_user_html(text, context, placeholder):
             return obj.render_plugin(context, placeholder)
         finally:
             context.pop()
-    return OBJ_ADMIN_RE.sub(_render_tag, text)
+    return OBJ_TAG_ADMIN_RE.sub(_render_tag, text)
 
 
 def plugin_admin_html_to_tags(text):
