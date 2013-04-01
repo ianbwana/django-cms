@@ -40,7 +40,7 @@
 	runOnLoad(function(){
 		parent.setiframeheight($('body').height()+20, {{ plugin.pk }});
 	});
-	$(document).ready(function(){
+	$(document).ready(function($){
 		$("a.add-another,a.related-lookup").each(function(i, sign){
 			var href = $(sign).attr("href")
 			if (href.substr(0,2) == ".."){
